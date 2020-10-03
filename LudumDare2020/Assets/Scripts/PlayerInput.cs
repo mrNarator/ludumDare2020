@@ -40,7 +40,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            sentient.DoFood();
+            sentient.Interact();
         }
     }
 }
