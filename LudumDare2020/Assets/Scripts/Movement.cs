@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +20,8 @@ public class Movement : MonoBehaviour
         Right,
     }
 
+    public bool CanReceiveInput => remainingMoveCooldown <= 0 && rb.velocity.magnitude <= 0.01;
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -34,7 +36,7 @@ public class Movement : MonoBehaviour
     {
         remainingMoveCooldown -= Time.deltaTime;
 
-        if (remainingMoveCooldown <= 0 && rb.velocity.magnitude <=0.01 && actionList.Count >0)
+        if (CanReceiveInput && actionList.Count >0)
         {
             bool proccessed = false;
             switch(actionList.Pop())
