@@ -68,7 +68,13 @@ public class Movement : MonoBehaviour
                         break;
                     }
             }
-            if(proccessed) { remainingMoveCooldown = MovementCooldown; actionList.Clear(); }
+            if (proccessed)
+            {
+                remainingMoveCooldown = MovementCooldown; 
+                actionList.Clear();
+                var sentient = GetComponent<Sentient>();
+                sentient?.ChangeFood(-Settings.Instance.MovementFoodCost);
+            }
         }
         else
         {

@@ -20,6 +20,7 @@ public class Sentient : MonoBehaviour
 
     List<IInteractable> InteractablesInRange = new List<IInteractable>();
 
+
     void Start()
     {
 
@@ -27,7 +28,7 @@ public class Sentient : MonoBehaviour
 
     void Update()
     {
-
+        ChangeDrink(-Settings.Instance.DrinkDecaySpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
