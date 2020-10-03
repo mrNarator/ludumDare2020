@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Food : MonoBehaviour, IInteractable
 {
-   
+    public float Value = 1;
+    // Start is called before the first frame update
     void Start()
     {
         
