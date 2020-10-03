@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -17,6 +18,8 @@ public class Sentient : MonoBehaviour
     public float Drink { get; private set; }
     public float Love { get; private set; }
 
+    HashSet<IInteractable> InteractablesInRange;
+
     void Start()
     {
         
@@ -33,7 +36,8 @@ public class Sentient : MonoBehaviour
         
         if(inter != null)
         {
-
+            Debug.Log("added" + inter.ToString());
+            InteractablesInRange.Add(inter);
         }
     }
 
@@ -43,29 +47,59 @@ public class Sentient : MonoBehaviour
 
         if(inter != null)
         {
-
+            Debug.Log("removed" + inter.ToString());
+            InteractablesInRange.Remove(inter);
         }
     }
 
 
     public void DoFood()
     {
-
+        var food = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Food);
+        if(food != null)
+        {
+            food.Interact(this);
+        }
     }
+    public void ChangeFood(float value) { Food += value; }
     public void DoDrink()
     {
-
+        var drink = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Drink);
+        if (drink != null)
+        {
+            drink.Interact(this);
+        }
     }
+    public void ChangeDrink(float value) { Drink += value; }
+
     public void DoStrength()
     {
-
+        var strength = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Strength);
+        if (strength != null)
+        {
+            strength.Interact(this);
+        }
     }
+    public void ChangeStrength(float value) { Strength += value; }
+
     public void DoHandsome()
     {
-
+        var handsome = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Handsome);
+        if (handsome != null)
+        {
+            handsome.Interact(this);
+        }
     }
+    public void ChangeHandsome(float value) { Handsome += value; }
+
     public void DoLove()
     {
-
+        var love = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Love);
+        if (love != null)
+        {
+            love.Interact(this);
+        }
     }
+    public void ChangeLove(float value) { Love += value;}
+
 }
