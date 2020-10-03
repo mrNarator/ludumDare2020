@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 using static IInteractable;
 
-public class Food : MonoBehaviour, IInteractable
+public class Strength : MonoBehaviour, IInteractable
 {
     public float Value = 1;
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class Food : MonoBehaviour, IInteractable
 
     public InteractionType GetInteractionType()
     {
-        return InteractionType.Food;
+        return InteractionType.Strength;
     }
 
     public float GetValue()
@@ -31,7 +31,7 @@ public class Food : MonoBehaviour, IInteractable
 
     public void Interact(Sentient Source)
     {
-        Source.ChangeFood(Value);
+        Source.ChangeStrength(Value);
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

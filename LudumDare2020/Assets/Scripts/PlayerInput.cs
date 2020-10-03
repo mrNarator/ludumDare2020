@@ -5,10 +5,15 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     Movement movement;
+    Sentient sentient;
+    PlayerHUD playerHUD;
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
+        sentient = GetComponent<Sentient>();
+
+        playerHUD = FindObjectOfType<PlayerHUD>();
     }
     void Start()
     {
@@ -35,5 +40,12 @@ public class PlayerInput : MonoBehaviour
         {
             movement.RegisterAction(Movement.MovementType.Right);
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            sentient.Interact();
+        }
+
+        playerHUD.UpdateScores(sentient);
     }
 }
