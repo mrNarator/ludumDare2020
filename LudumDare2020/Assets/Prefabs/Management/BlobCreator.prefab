@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _circleRadius: 55.9
-  _newObjectsRoot: {fileID: 0}
+  _newObjectsRoot: {fileID: 4621459215234040284}
   showRanges: 1
 --- !u!114 &4621459215234040274
 MonoBehaviour:
@@ -61,5 +61,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blobPrefab: {fileID: 6212708550142829737, guid: 6ff8c4395c527124ebaf16b8c70dc123,
     type: 3}
-  _targetBlobNo: 100
+  _targetBlobNo: 50
   _spawnRatePerSecond: 5

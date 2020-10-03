@@ -17,7 +17,6 @@ public class BlobPopulator : MonoBehaviour
     [SerializeField]
     private float _spawnRatePerSecond;
 
-    [SerializeField]
     private int SPAWNEDCOUND;
 
     private float _spawnFraction = 0f;
