@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     Movement movement;
+    Sentient sentient;
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
+        sentient = GetComponent<Sentient>();
     }
     void Start()
     {
@@ -34,6 +36,11 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKey(KeyCode.A))
         {
             movement.RegisterAction(Movement.MovementType.Right);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            sentient.DoFood();
         }
     }
 }

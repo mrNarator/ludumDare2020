@@ -18,7 +18,7 @@ public class Sentient : MonoBehaviour
     public float Drink { get; private set; }
     public float Love { get; private set; }
 
-    HashSet<IInteractable> InteractablesInRange;
+    List<IInteractable> InteractablesInRange = new List<IInteractable>();
 
     void Start()
     {
@@ -55,16 +55,17 @@ public class Sentient : MonoBehaviour
 
     public void DoFood()
     {
-        var food = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Food);
+        var food = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Food);
         if(food != null)
         {
             food.Interact(this);
+            InteractablesInRange.Remove(food);
         }
     }
     public void ChangeFood(float value) { Food += value; }
     public void DoDrink()
     {
-        var drink = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Drink);
+        var drink = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Drink);
         if (drink != null)
         {
             drink.Interact(this);
@@ -74,7 +75,7 @@ public class Sentient : MonoBehaviour
 
     public void DoStrength()
     {
-        var strength = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Strength);
+        var strength = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Strength);
         if (strength != null)
         {
             strength.Interact(this);
@@ -84,7 +85,7 @@ public class Sentient : MonoBehaviour
 
     public void DoHandsome()
     {
-        var handsome = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Handsome);
+        var handsome = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Handsome);
         if (handsome != null)
         {
             handsome.Interact(this);
@@ -94,7 +95,7 @@ public class Sentient : MonoBehaviour
 
     public void DoLove()
     {
-        var love = InteractablesInRange.First(x => x.GetInteractionType() == InteractionType.Love);
+        var love = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Love);
         if (love != null)
         {
             love.Interact(this);
