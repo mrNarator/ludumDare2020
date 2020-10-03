@@ -1,37 +1,22 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Settings : MonoBehaviour
+[CreateAssetMenu( fileName = "GlobalSettings", menuName = "GameSettings/Global")]
+public class Settings : ScriptableObject
 {
     public float DrinkDecaySpeed = 0.01f;
     public float MovementFoodCost = 0.1f;
 
-    private static Settings instance = null;
+    public Blob BlobSettings;
 
-    // Game Instance Singleton
-    public static Settings Instance
+
+
+    [Serializable]
+    public class Blob
     {
-        get
-        {
-            return instance;
-        }
-    }
-
-    private void Awake()
-    {
-        // if the singleton hasn't been initialized yet
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-    void Update()
-    {
-
+        [Range(0, 25)]
+        public float VisioRange;
     }
 }

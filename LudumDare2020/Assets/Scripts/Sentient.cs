@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,17 +21,13 @@ public class Sentient : MonoBehaviour
 
     List<IInteractable> InteractablesInRange = new List<IInteractable>();
 
-
-    void Start()
-    {
-
-    }
-
+    [UsedImplicitly]
     void Update()
     {
-        ChangeDrink(-Settings.Instance.DrinkDecaySpeed * Time.deltaTime);
+        ChangeDrink(-SettingsProvider.Instance.Global.DrinkDecaySpeed * Time.deltaTime);
     }
 
+    [UsedImplicitly]
     private void OnTriggerEnter(Collider other)
     {
         var inter = other.GetComponentInParent<IInteractable>();
@@ -42,6 +39,7 @@ public class Sentient : MonoBehaviour
         }
     }
 
+    [UsedImplicitly]
     private void OnTriggerExit(Collider other)
     {
         var inter = other.GetComponentInParent<IInteractable>();

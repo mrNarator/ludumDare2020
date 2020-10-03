@@ -75,7 +75,7 @@ public class Movement : MonoBehaviour
                 remainingMoveCooldown = MovementCooldown; 
                 actionList.Clear();
                 var sentient = GetComponent<Sentient>();
-                sentient?.ChangeFood(-Settings.Instance.MovementFoodCost);
+                sentient?.ChangeFood(-SettingsProvider.Instance.Global.MovementFoodCost);
             }
         }
         else
