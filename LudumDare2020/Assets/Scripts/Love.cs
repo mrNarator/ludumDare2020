@@ -7,6 +7,9 @@ using static IInteractable;
 public class Love : MonoBehaviour, IInteractable, IInteractableInitializer
 {
     public float Value = 1;
+    private bool consumed;
+
+    public bool IsConsumed => consumed;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,7 @@ public class Love : MonoBehaviour, IInteractable, IInteractableInitializer
     public void Interact(Sentient Source)
     {
         Source.ChangeLove(Value);
+        consumed = true;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

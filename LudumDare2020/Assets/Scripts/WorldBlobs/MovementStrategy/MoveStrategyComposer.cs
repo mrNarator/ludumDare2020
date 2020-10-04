@@ -12,7 +12,7 @@ public class MoveStrategyComposer : AMovementStrategy
 {
     [SerializeField]
     [ReorderableList]
-    private List<AMovementStrategy> _tryApplySequence;
+    protected List<AMovementStrategy> _tryApplySequence;
 
     public override bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove)
     {

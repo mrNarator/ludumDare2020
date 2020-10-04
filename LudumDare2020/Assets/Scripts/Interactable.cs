@@ -6,10 +6,15 @@ public interface IInteractable
 
     float GetValue();
 
+    bool IsConsumed { get; }
+
     InteractionType GetInteractionType();
 
     Vector3 GetPosition();
 }
+
+public interface IFood : IInteractable { }
+public interface ILove : IInteractable { }
 
 public interface IInteractableInitializer
 {

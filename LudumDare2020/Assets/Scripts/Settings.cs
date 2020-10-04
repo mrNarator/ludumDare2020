@@ -20,5 +20,16 @@ public class Settings : ScriptableObject
         public float MaxStatMagicNumber;
 
         public bool ShowDebug = true;
+
+        public AI AISettings;
+
+        [Serializable]
+        public class AI
+        {
+            public float FoodCriticalPerc;
+            public float WaterCriticalPerc;
+            public float HandsCriticalPerc;
+            public float StrengthCriticalPerc;
+        }
     }
 }

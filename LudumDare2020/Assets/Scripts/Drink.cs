@@ -7,6 +7,10 @@ using static IInteractable;
 public class Drink : MonoBehaviour, IInteractable, IInteractableInitializer
 {
     public float Value = 1;
+    private bool consumed;
+
+    public bool IsConsumed => consumed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class Drink : MonoBehaviour, IInteractable, IInteractableInitializer
     public void Interact(Sentient Source)
     {
         Source.ChangeDrink(Value);
+        consumed = true;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

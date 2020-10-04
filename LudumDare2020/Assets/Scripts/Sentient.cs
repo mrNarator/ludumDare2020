@@ -1,3 +1,4 @@
+using Generic;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ public class Sentient : MonoBehaviour
 
     List<IInteractable> InteractablesInRange = new List<IInteractable>();
 
+    public bool InInteractionRange => InteractablesInRange.Count > 0;
+
     [UsedImplicitly]
     void Update()
     {
@@ -30,24 +33,30 @@ public class Sentient : MonoBehaviour
     [UsedImplicitly]
     private void OnTriggerEnter(Collider other)
     {
-        var inter = other.GetComponentInParent<IInteractable>();
+        var isVision = other.gameObject.layer == LayerMask.NameToLayer("BlobVision");
+        if (isVision) return;
+
+        var inter = other.GetComponentsInParent<IInteractable>();
 
         if (inter != null)
         {
             Debug.Log("added" + inter.ToString());
-            InteractablesInRange.Add(inter);
+            InteractablesInRange.AddRange(inter);
         }
     }
 
     [UsedImplicitly]
     private void OnTriggerExit(Collider other)
     {
-        var inter = other.GetComponentInParent<IInteractable>();
+        var isVision = other.gameObject.layer == LayerMask.NameToLayer("BlobVision");
+        if (isVision) return;
+
+        var inter = other.GetComponentsInParent<IInteractable>();
 
         if (inter != null)
         {
             Debug.Log("removed" + inter.ToString());
-            InteractablesInRange.Remove(inter);
+            InteractablesInRange.RemoveRange(inter);
         }
     }
 
@@ -59,23 +68,29 @@ public class Sentient : MonoBehaviour
 
     public void Interact()
     {
-        if (DoFood()) {  
+        if (DoFood()) {
+
+            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoFood)} - ok</color>");
         }
         else if (DoDrink()) { 
+            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoDrink)} - ok</color>");
         }
         else if (DoHandsome()){
+            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoHandsome)} - ok</color>");
         }
         else if (DoStrength()){      
+            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoStrength)} - ok</color>");
         }
         else
         {
+            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoLove)} - ok</color>");
 
         }
     }
 
     public bool DoFood()
     {
-        var food = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Food);
+        var food = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Food && x?.IsConsumed == false);
         if(food != null)
         {
             food.Interact(this);
@@ -90,7 +105,7 @@ public class Sentient : MonoBehaviour
     public void ChangeFood(float value) { Food += value; }
     public bool DoDrink()
     {
-        var drink = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Drink);
+        var drink = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Drink && x?.IsConsumed == false);
         if (drink != null)
         {
             drink.Interact(this);
@@ -106,7 +121,7 @@ public class Sentient : MonoBehaviour
 
     public bool DoStrength()
     {
-        var strength = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Strength);
+        var strength = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Strength && x?.IsConsumed == false);
         if (strength != null)
         {
             strength.Interact(this);
@@ -123,7 +138,7 @@ public class Sentient : MonoBehaviour
 
     public bool DoHandsome()
     {
-        var handsome = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Handsome);
+        var handsome = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Handsome && x?.IsConsumed == false);
         if (handsome != null)
         {
             handsome.Interact(this);
@@ -140,7 +155,7 @@ public class Sentient : MonoBehaviour
 
     public bool DoLove()
     {
-        var love = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Love);
+        var love = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Love && x?.IsConsumed == false);
         if (love != null)
         {
             love.Interact(this); 
@@ -153,5 +168,4 @@ public class Sentient : MonoBehaviour
         }
     }
     public void ChangeLove(float value) { Love += value;}
-
 }
