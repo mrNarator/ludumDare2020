@@ -18,5 +18,9 @@ public class Settings : ScriptableObject
     {
         [Range(0, 25)]
         public float VisioRange;
+
+        public float MaxStatMagicNumber;
+
+        public bool ShowDebug = true;
     }
 }

@@ -1,5 +1,6 @@
 using Events;
 using JetBrains.Annotations;
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,23 +13,36 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(Movement))]
 public class BlobMovementOrchestrator : MonoBehaviour
 {
-    private Movement _movement;
+    private Movement movement;
+    private BlobVision vision;
+
     [SerializeField]
-    private AMovementStrategy _selectedMovementStrat;
+    private AMovementStrategy _availableStarts;
+
+    [ShowNonSerializedField]
+    private AMovementStrategy selectedMovementStrat;
 
     [UsedImplicitly]
     private void Awake()
     {
-        _movement = GetComponent<Movement>();
-        Assert.IsNotNull(_selectedMovementStrat);
+        movement = GetComponent<Movement>();
+        vision = GetComponentInChildren<BlobVision>();
+        Assert.IsNotNull(_availableStarts);
+
+        // change this later;
+        selectedMovementStrat = _availableStarts;
     }
 
     [UsedImplicitly]
     private void Update()
     {
-        if(_movement.CanReceiveInput)
+        if(movement.CanReceiveInput)
         {
-            _movement.RegisterAction(_selectedMovementStrat.GetNextMovement());
+            var seenInteractions = vision?.AllInVision;
+            if(selectedMovementStrat.GetNextMovement(seenInteractions, transform.position, out var move))
+            {
+                movement.RegisterAction(move);
+            }
         }
     }
 

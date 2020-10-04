@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53c19a0d6a15844459b911338359e3d1, type: 3}
-  m_Name: GlobalSettings
+  m_Script: {fileID: 11500000, guid: 58a306223ff1a1f4d9fe361f20199c94, type: 3}
+  m_Name: GetLoveMovementStrategy
   m_EditorClassIdentifier: 
-  DrinkDecaySpeed: 0.01
-  MovementFoodCost: 0.1
-  BlobSettings:
-    VisioRange: 8
-    MaxStatMagicNumber: 5
-    ShowDebug: 1
+  whatToSearch: 3

@@ -1,28 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2686081848820245200
+--- !u!1001 &4299295890804414579
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5960075703417985977, guid: cded913fb3aa8e74abb7f4ca46c1c81d,
-        type: 3}
-      propertyPath: _selectedMovementStrat
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e975c90e4ac5ad4295eb6c93915aeab,
-        type: 2}
-    - target: {fileID: 5960075703417985977, guid: cded913fb3aa8e74abb7f4ca46c1c81d,
-        type: 3}
-      propertyPath: _availableStarts
-      value: 
-      objectReference: {fileID: 11400000, guid: 0e975c90e4ac5ad4295eb6c93915aeab,
-        type: 2}
     - target: {fileID: 8318457162410329721, guid: cded913fb3aa8e74abb7f4ca46c1c81d,
         type: 3}
       propertyPath: m_Name
-      value: Blob-Random
+      value: Blob
       objectReference: {fileID: 0}
     - target: {fileID: 8318457162410329722, guid: cded913fb3aa8e74abb7f4ca46c1c81d,
         type: 3}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class Movement : MonoBehaviour
 {
     public float MovementCooldown = 0.25f;
@@ -91,25 +92,25 @@ public class Movement : MonoBehaviour
 
     void Forward()
     {
-        Vector3 dir = new Vector3(0.5f, 0.25f, 0.0f);
+        Vector3 dir = new Vector3(0.0f, 0.25f, 0.5f);
         Move(dir * Speed);
     }
 
     void Backward()
     {
-        Vector3 dir = new Vector3(-0.5f, 0.25f, 0.0f);
+        Vector3 dir = new Vector3(0.0f, 0.25f, -0.5f);
         Move(dir * Speed);
     }
     
     void Right()
     {
-        Vector3 dir = new Vector3(0.0f, 0.25f, -0.5f);
+        Vector3 dir = new Vector3(0.5f, 0.25f, 0.0f);
         Move(dir * Speed);
     }
 
     void Left()
     {
-        Vector3 dir = new Vector3(0.0f, 0.25f, 0.5f);
+        Vector3 dir = new Vector3(-0.5f, 0.25f, 0.0f);
         Move(dir * Speed);
     }
 

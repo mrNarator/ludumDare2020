@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public interface IInteractable
 {
@@ -10,6 +10,12 @@ public interface IInteractable
 
     Vector3 GetPosition();
 }
+
+public interface IInteractableInitializer
+{
+    void Init(float initialValue);
+}
+
 public enum InteractionType
 {
     Food,

@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb94495bf36d4234ca6182f92e517edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blobPrefab: {fileID: 6212708550142829737, guid: 6ff8c4395c527124ebaf16b8c70dc123,
+  _blobPrefab: {fileID: 5249845190733340170, guid: e9196b4b16a3e6147b4c3489fb7d3df7,
     type: 3}
   _targetBlobNo: 50
   _spawnRatePerSecond: 5

@@ -17,15 +17,24 @@ public class BlobPopulator : MonoBehaviour
     [SerializeField]
     private float _spawnRatePerSecond;
 
+    private Settings.Blob _blobSettings;
+
     private int SPAWNEDCOUND;
 
     private float _spawnFraction = 0f;
     private List<GameObject> blobTracker = new List<GameObject>();
 
+    [UsedImplicitly]
     private void Awake()
     {
         var stream = MessageBroker.Default.Receive<BlobDeadEvt>();
         stream.Subscribe(x => blobTracker.Remove(x.Blob));
+    }
+
+    [UsedImplicitly]
+    private void Start()
+    {
+        _blobSettings = SettingsProvider.Instance.Global.BlobSettings;
     }
 
     [UsedImplicitly]
@@ -44,11 +53,21 @@ public class BlobPopulator : MonoBehaviour
                 blob.name = $"Blob No: {blobTracker.Count}";
 
                 BlobPositioner.PleaseBeThere.PositionNewBlob(blob.transform);
+                TryApplyRandomStats(blob);
 
                 blobTracker.Add(blob);
                 SPAWNEDCOUND = blobTracker.Count;
                 toSpawn--;
             }
+        }
+    }
+
+    private void TryApplyRandomStats(GameObject go)
+    {
+        var initializable = go.GetComponents<IInteractableInitializer>();
+        foreach(var toInit in initializable)
+        {
+            toInit.Init(UnityEngine.Random.Range(0f, _blobSettings.MaxStatMagicNumber));
         }
     }
 }

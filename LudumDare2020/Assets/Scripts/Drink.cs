@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 using static IInteractable;
 
-public class Drink : MonoBehaviour, IInteractable
+public class Drink : MonoBehaviour, IInteractable, IInteractableInitializer
 {
     public float Value = 1;
     // Start is called before the first frame update
@@ -40,4 +40,10 @@ public class Drink : MonoBehaviour, IInteractable
     {
         return gameObject.transform.position;
     }
+
+    public void Init(float initialValue)
+    {
+        Value = initialValue;
+    }
+
 }

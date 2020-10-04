@@ -56,6 +56,7 @@ public class Sentient : MonoBehaviour
     {
 
     }
+
     public void Interact()
     {
         if (DoFood()) {  

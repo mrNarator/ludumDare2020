@@ -6,20 +6,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Generic;
 
-public interface IMovementStrategy
-{
-    Movement.MovementType GetNextMovement();
-}
-
-/// <summary>
-/// Because Unity is not very nice, at letting developers use interfaces as serialize fields :/
-/// </summary>
-public abstract class AMovementStrategy : ScriptableObject
-    , IMovementStrategy
-{
-    public abstract Movement.MovementType GetNextMovement();
-}
-
 [CreateAssetMenu(fileName = "RandomMovementStrategy", menuName = "BlobMovement/Random")]
 public class RandomMovement : AMovementStrategy
 {
@@ -35,8 +21,9 @@ public class RandomMovement : AMovementStrategy
         }
     }
 
-    public override Movement.MovementType GetNextMovement()
+    public override bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove)
     {
-        return AllTypes.GetRandomValue();
+        nextMove = AllTypes.GetRandomValue();
+        return true;
     }
 }
