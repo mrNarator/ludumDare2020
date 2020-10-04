@@ -59,6 +59,45 @@ public class Sentient : MonoBehaviour
     }
 
     [UsedImplicitly]
+    private void Start()
+    {
+        SetupInitValues();
+    }
+
+    private void SetupInitValues()
+    {
+        var interactables = GetComponents<IInteractable>();
+        foreach (var inter in interactables)
+        {
+            if (inter.GetInteractionType() == InteractionType.Food)
+            {
+                Food = inter.GetValue();
+                continue;
+            }
+            if (inter.GetInteractionType() == InteractionType.Drink)
+            {
+                Drink = inter.GetValue();
+                continue;
+            }
+            if (inter.GetInteractionType() == InteractionType.Handsome)
+            {
+                Handsome = inter.GetValue();
+                continue;
+            }
+            if (inter.GetInteractionType() == InteractionType.Strength)
+            {
+                Strength = inter.GetValue();
+                continue;
+            }
+            if (inter.GetInteractionType() == InteractionType.Love)
+            {
+                Love = inter.GetValue();
+                continue;
+            }
+        }
+    }
+
+    [UsedImplicitly]
     private void OnDestroy()
     {
         evtStream.Dispose();
