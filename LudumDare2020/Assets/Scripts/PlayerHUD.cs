@@ -16,11 +16,11 @@ public class PlayerHUD : MonoBehaviour
     public void UpdateScores(Sentient sentient)
     {
         if(sentient == null) { return; }
-        string foodText = sentient.Food + "/" + sentient.maxFood;
-        string drinkText = sentient.Drink + "/" + sentient.maxDrink;
-        string strengthText = sentient.Strength + "/" + sentient.maxStrength;
-        string handsomeText = sentient.Handsome + "/" + sentient.maxHandsome;
-        string loveText = sentient.Love + "/" + sentient.maxLove;
+        string foodText = sentient.Food.ToString("F1") + "/" + sentient.maxFood;
+        string drinkText = sentient.Drink.ToString("F1") + "/" + sentient.maxDrink;
+        string strengthText = sentient.Strength.ToString("F1") + "/" + sentient.maxStrength;
+        string handsomeText = sentient.Handsome.ToString("F1") + "/" + sentient.maxHandsome;
+        string loveText = sentient.Love.ToString("F1") + "/" + sentient.maxLove;
 
         FoodScore.SetText(foodText);
         DrinkScore.SetText(drinkText);

@@ -11,8 +11,6 @@ public class Settings : ScriptableObject
 
     public Blob BlobSettings;
 
-
-
     [Serializable]
     public class Blob
     {
