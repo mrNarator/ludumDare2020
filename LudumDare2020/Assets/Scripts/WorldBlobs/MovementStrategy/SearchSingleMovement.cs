@@ -8,10 +8,12 @@ using Generic;
 
 [CreateAssetMenu(fileName = "SimpleMovementStrategy", menuName = "BlobMovement/Search Strategy Simple")]
 public class SearchSingleMovement : AMovementStrategy
+    , ISimpleMover
 {
     [SerializeField]
     private InteractionType whatToSearch;
 
+    public InteractionType OptimizeType => whatToSearch;
 
     public override bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove)
     {
