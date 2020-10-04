@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     private float remainingMoveCooldown = 0.0f;
 
     Rigidbody rb;
-
+    Sentient sentient;
     Stack<MovementType> actionList = new Stack<MovementType>();
 
     public enum MovementType { 
@@ -21,11 +21,13 @@ public class Movement : MonoBehaviour
         Right,
     }
 
-    public bool CanReceiveInput => remainingMoveCooldown <= 0 && rb.velocity.magnitude <= 0.01;
+    public bool CanReceiveInput => (remainingMoveCooldown <= 0 && rb.velocity.magnitude <= 0.01) &&
+        sentient == null ? true : sentient.Alive();
 
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        sentient = GetComponent<Sentient>();
     }
 
     void Start()
@@ -75,7 +77,6 @@ public class Movement : MonoBehaviour
             {
                 remainingMoveCooldown = MovementCooldown; 
                 actionList.Clear();
-                var sentient = GetComponent<Sentient>();
                 sentient?.ChangeFood(-SettingsProvider.Instance.Global.MovementFoodCost);
             }
         }

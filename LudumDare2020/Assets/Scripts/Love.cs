@@ -34,6 +34,7 @@ public class Love : MonoBehaviour, IInteractable, IInteractableInitializer
 
     public void Interact(Sentient Source)
     {
+        if(consumed) { return; }
         Source.ChangeLove(Value);
         consumed = true;
         gameObject.SetActive(false);

@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -20,14 +21,24 @@ public class Sentient : MonoBehaviour
     public float Drink { get; private set; }
     public float Love { get; private set; }
 
+    public bool Alive() { return Drink >= 0; }
+    public bool CanMove() { return Alive() && (Food >= SettingsProvider.Instance.Global.MovementFoodCost); }
+
+
     List<IInteractable> InteractablesInRange = new List<IInteractable>();
 
     public bool InInteractionRange => InteractablesInRange.Count > 0;
 
+    public bool IsConsumed => throw new System.NotImplementedException();
+
     [UsedImplicitly]
     void Update()
     {
-        ChangeDrink(-SettingsProvider.Instance.Global.DrinkDecaySpeed * Time.deltaTime);
+        if(Alive())
+        {
+            ChangeDrink(-SettingsProvider.Instance.Global.DrinkDecaySpeed * Time.deltaTime);
+
+        }
     }
 
     [UsedImplicitly]
@@ -61,9 +72,19 @@ public class Sentient : MonoBehaviour
     }
 
 
-    public void RequestInterection(Sentient OtherSentient)
+    public bool RequestInterection(Sentient OtherSentient, InteractionType Type)
     {
-
+        switch (Type)
+        {
+            case InteractionType.Love:
+                {
+                    return ProccessLoveTransaction(OtherSentient);
+                }
+            default:
+                {
+                    return false;
+                }
+        }
     }
 
     public void Interact()
@@ -81,10 +102,13 @@ public class Sentient : MonoBehaviour
         else if (DoStrength()){      
             UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoStrength)} - ok</color>");
         }
-        else
+        else if (DoLove())
         {
             UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoLove)} - ok</color>");
-
+        }
+        else
+        {
+          
         }
     }
 
@@ -102,7 +126,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeFood(float value) { Food += value; }
+    public void ChangeFood(float value) { Mathf.Clamp(Food += value, 0, maxFood); }
     public bool DoDrink()
     {
         var drink = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Drink && x?.IsConsumed == false);
@@ -117,7 +141,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeDrink(float value) { Drink += value; }
+    public void ChangeDrink(float value) { Mathf.Clamp(Drink += value, 0, maxDrink);  }
 
     public bool DoStrength()
     {
@@ -134,7 +158,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeStrength(float value) { Strength += value; }
+    public void ChangeStrength(float value) { Mathf.Clamp(Strength += value, 0, maxStrength); }
 
     public bool DoHandsome()
     {
@@ -151,21 +175,53 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeHandsome(float value) { Handsome += value; }
+    public void ChangeHandsome(float value) { Mathf.Clamp(Handsome += value, 0, maxHandsome); }
 
     public bool DoLove()
     {
         var love = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Love && x?.IsConsumed == false);
         if (love != null)
         {
-            love.Interact(this); 
+            love.Interact(this);
 
+            InteractablesInRange.Remove(love);
             return true;
         }
         else
         {
             return false;
         }
+
     }
-    public void ChangeLove(float value) { Love += value;}
+    public void ChangeLove(float value) {
+        Mathf.Clamp(Love += value, 0, maxLove);
+    }
+
+
+    private bool ProccessLoveTransaction(Sentient OtherSentient)
+{
+        //prolly should not be here
+        bool success = false;
+        if (OtherSentient.Strength >Strength)
+        {
+            success = true;
+            OtherSentient.ChangeStrength(-1);
+        }
+        else if (OtherSentient.Handsome > Handsome)
+        {
+            OtherSentient.ChangeHandsome(-1);
+            success = true;
+        }
+        else
+        {
+            OtherSentient.ChangeLove(-1);
+        }
+
+        if (success)
+        {
+            OtherSentient.ChangeLove(1);
+            ChangeLove(1);
+        }
+        return success;
+    }
 }
