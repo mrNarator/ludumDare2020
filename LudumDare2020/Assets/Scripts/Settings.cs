@@ -30,6 +30,7 @@ public class Settings : ScriptableObject
             public float WaterCriticalPerc;
             public float HandsCriticalPerc;
             public float StrengthCriticalPerc;
+            public float LoveCriticalPerc;
         }
     }
 }

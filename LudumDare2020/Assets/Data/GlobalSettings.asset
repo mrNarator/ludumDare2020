@@ -18,3 +18,9 @@ MonoBehaviour:
     VisioRange: 8
     MaxStatMagicNumber: 5
     ShowDebug: 1
+    AISettings:
+      FoodCriticalPerc: 1
+      WaterCriticalPerc: 0.7
+      HandsCriticalPerc: 0.1
+      StrengthCriticalPerc: 0.5
+      LoveCriticalPerc: 0.1

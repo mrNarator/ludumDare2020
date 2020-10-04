@@ -1,8 +1,11 @@
+using Events;
 using Generic;
 using JetBrains.Annotations;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -14,15 +17,45 @@ public class Sentient : MonoBehaviour
     public float maxDrink = 5;
     public float maxLove = 5;
 
+    [ShowNativeProperty]
     public float Handsome { get; private set; }
+    [ShowNativeProperty]
     public float Strength { get; private set; }
+    [ShowNativeProperty]
     public float Food { get; private set; }
+    [ShowNativeProperty]
     public float Drink { get; private set; }
+    [ShowNativeProperty]
     public float Love { get; private set; }
 
     List<IInteractable> InteractablesInRange = new List<IInteractable>();
 
     public bool InInteractionRange => InteractablesInRange.Count > 0;
+
+    private System.IDisposable evtStream;
+    private IPrioritiesEvaluator priorityEvaluator;
+
+    private static List<InteractionType> defaultInteractionSequence = new List<InteractionType>
+    {
+        InteractionType.Food,
+        InteractionType.Drink,
+        InteractionType.Handsome,
+        InteractionType.Strength,
+        InteractionType.Love,
+    };
+
+    [UsedImplicitly]
+    private void Awake()
+    {
+        evtStream = MessageBroker.Default.Receive<InteractableConsumedEvt>().Subscribe(evt => TryRemoveOthers(evt.Obj));
+        priorityEvaluator = GetComponent<IPrioritiesEvaluator>();
+    }
+
+    [UsedImplicitly]
+    private void OnDestroy()
+    {
+        evtStream.Dispose();
+    }
 
     [UsedImplicitly]
     void Update()
@@ -38,9 +71,9 @@ public class Sentient : MonoBehaviour
 
         var inter = other.GetComponentsInParent<IInteractable>();
 
-        if (inter != null)
+        if (inter.Length > 0)
         {
-            Debug.Log("added" + inter.ToString());
+            Debug.Log($"added {other.gameObject.name} to {name}");
             InteractablesInRange.AddRange(inter);
         }
     }
@@ -48,15 +81,24 @@ public class Sentient : MonoBehaviour
     [UsedImplicitly]
     private void OnTriggerExit(Collider other)
     {
-        var isVision = other.gameObject.layer == LayerMask.NameToLayer("BlobVision");
+        TryRemoveOthers(other.gameObject);
+    }
+
+    private void TryRemoveOthers(GameObject obj)
+    {
+        var isVision = obj.layer == LayerMask.NameToLayer("BlobVision");
         if (isVision) return;
 
-        var inter = other.GetComponentsInParent<IInteractable>();
-
-        if (inter != null)
+        var inter = obj.GetComponentsInParent<IInteractable>();
+        if(inter.Length == 0)
         {
-            Debug.Log("removed" + inter.ToString());
+            inter = obj.GetComponents<IInteractable>();
+        }
+
+        if (inter.Length > 0)
+        {
             InteractablesInRange.RemoveRange(inter);
+            Debug.Log($"removed {obj.name} from {name} left: {InteractablesInRange.Count}");
         }
     }
 
@@ -68,23 +110,33 @@ public class Sentient : MonoBehaviour
 
     public void Interact()
     {
-        if (DoFood()) {
-
-            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoFood)} - ok</color>");
-        }
-        else if (DoDrink()) { 
-            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoDrink)} - ok</color>");
-        }
-        else if (DoHandsome()){
-            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoHandsome)} - ok</color>");
-        }
-        else if (DoStrength()){      
-            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoStrength)} - ok</color>");
-        }
-        else
+        var priorities = priorityEvaluator?.GetTargetPriorities() ?? defaultInteractionSequence;
+        foreach(var pri in priorities)
         {
-            UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoLove)} - ok</color>");
-
+            if(pri == InteractionType.Food && DoFood())
+            {
+                UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoFood)} - ok</color>");
+                return;
+            }
+            if (pri == InteractionType.Drink && DoDrink()) {
+                UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoDrink)} - ok</color>");
+                return;
+            }
+            if(pri == InteractionType.Handsome && DoHandsome())
+            {
+                UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoHandsome)} - ok</color>");
+                return;
+            }
+            if(pri == InteractionType.Strength && DoStrength())
+            {
+                UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoStrength)} - ok</color>");
+                return;
+            }
+            if(pri == InteractionType.Love && DoLove())
+            {
+                UnityEngine.Debug.Log($"<color=#22aa33>{name} do {nameof(DoLove)} - ok</color>");
+                return;
+            }
         }
     }
 
@@ -160,6 +212,7 @@ public class Sentient : MonoBehaviour
         {
             love.Interact(this); 
 
+            InteractablesInRange.Remove(love);
             return true;
         }
         else

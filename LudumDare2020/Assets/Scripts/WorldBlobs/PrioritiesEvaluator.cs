@@ -36,10 +36,13 @@ public class PrioritiesEvaluator : MonoBehaviour, IPrioritiesEvaluator
         workList.Add((type: InteractionType.Drink, perc: waterPerc, isCrit: waterPerc < _blobSettings.AISettings.WaterCriticalPerc));
 
         var handsPerc = sentient.Handsome / sentient.maxHandsome;
-        workList.Add((type: InteractionType.Handsome, perc: handsPerc, handsPerc < _blobSettings.AISettings.HandsCriticalPerc));
+        workList.Add((type: InteractionType.Handsome, perc: handsPerc, isCrit: handsPerc < _blobSettings.AISettings.HandsCriticalPerc));
 
         var strengthPerc = sentient.Strength / sentient.maxStrength;
-        workList.Add((type: InteractionType.Strength, perc: strengthPerc, strengthPerc < _blobSettings.AISettings.StrengthCriticalPerc));
+        workList.Add((type: InteractionType.Strength, perc: strengthPerc, isCrit: strengthPerc < _blobSettings.AISettings.StrengthCriticalPerc));
+
+        var lovePerc = sentient.Love / sentient.maxLove;
+        workList.Add((type: InteractionType.Love, perc: lovePerc, isCrit: lovePerc < _blobSettings.AISettings.LoveCriticalPerc));
 
         foreach(var (type, perc, isCrit) in workList)
         {

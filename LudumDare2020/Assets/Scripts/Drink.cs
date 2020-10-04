@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 using static IInteractable;
 
+[RequireComponent(typeof(InteractableConsume))]
 public class Drink : MonoBehaviour, IInteractable, IInteractableInitializer
 {
     public float Value = 1;
-    private bool consumed;
-
-    public bool IsConsumed => consumed;
+    private InteractableConsume consumeRef;
+    public bool IsConsumed => consumeRef.Consumed;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        consumeRef = GetComponent<InteractableConsume>();
     }
 
     // Update is called once per frame
@@ -36,9 +36,7 @@ public class Drink : MonoBehaviour, IInteractable, IInteractableInitializer
     public void Interact(Sentient Source)
     {
         Source.ChangeDrink(Value);
-        consumed = true;
-        gameObject.SetActive(false);
-        Destroy(gameObject);
+        consumeRef.MarkConsumed();
     }
 
     public Vector3 GetPosition()
