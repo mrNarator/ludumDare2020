@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6083307371362717657}
   - component: {fileID: 8445226867313965633}
-  - component: {fileID: 7237932239536942998}
   - component: {fileID: 8782229131440379215}
   m_Layer: 0
   m_Name: Main Camera
@@ -76,14 +75,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &7237932239536942998
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2873415379806267311}
-  m_Enabled: 1
 --- !u!82 &8782229131440379215
 AudioSource:
   m_ObjectHideFlags: 0
@@ -98,7 +89,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -240,6 +231,14 @@ MonoBehaviour:
   maxFood: 5
   maxDrink: 5
   maxLove: 5
+--- !u!81 &868414358445676599
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729335237005088602}
+  m_Enabled: 1
 --- !u!82 &7025708750502167762
 AudioSource:
   m_ObjectHideFlags: 0
@@ -407,6 +406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6443511489849592375, guid: 90fb5324967a59d4da4af9c4a557cd57,
+        type: 3}
+      propertyPath: m_Radius
+      value: 2.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90fb5324967a59d4da4af9c4a557cd57, type: 3}

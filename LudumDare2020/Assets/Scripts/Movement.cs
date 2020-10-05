@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     }
 
     public bool CanReceiveInput => (remainingMoveCooldown <= 0 && rb.velocity.magnitude <= 0.01) &&
-        (sentient?.Alive() ?? true);
+        (sentient?.Alive() ?? true) && (sentient?.CanMove()??true);
 
     void Awake()
     {

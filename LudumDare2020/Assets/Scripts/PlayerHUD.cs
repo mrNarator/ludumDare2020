@@ -65,7 +65,7 @@ public class PlayerHUD : MonoBehaviour
 
             if(RestartIn)
             {
-                RestartIn.SetText("Restarting in: " + RestartTimer.ToString());
+                RestartIn.SetText("Restarting in: " + ((int)RestartTimer).ToString());
             }
         }
 

@@ -30,7 +30,7 @@ public class Sentient : MonoBehaviour
     public float Love { get; private set; }
 
     public bool Alive() { return Drink >= 0; }
-    public bool CanMove() { return Alive() && (Food >= SettingsProvider.Instance.Global.MovementFoodCost); }
+    public bool CanMove() { return Alive() && (Food - SettingsProvider.Instance.Global.MovementFoodCost >= -0.01f); }
 
 
     List<IInteractable> InteractablesInRange = new List<IInteractable>();
