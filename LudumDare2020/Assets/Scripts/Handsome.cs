@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.WSA.Input;
-using static IInteractable;
 
 [RequireComponent(typeof(InteractableConsume))]
 public class Handsome : MonoBehaviour, IInteractable, IInteractableInitializer
