@@ -24,3 +24,21 @@ MonoBehaviour:
       HandsCriticalPerc: 0.1
       StrengthCriticalPerc: 0.5
       LoveCriticalPerc: 0.1
+  ColorSettings:
+    Interactions:
+    - Type: 0
+      Color: {r: 0.61960787, g: 0.16470589, b: 0.16862746, a: 1}
+    - Type: 1
+      Color: {r: 1, g: 0.9529412, b: 0.6901961, a: 1}
+    - Type: 2
+      Color: {r: 0.2, g: 0.36078432, b: 0.40392157, a: 1}
+    - Type: 4
+      Color: {r: 0.32941177, g: 0.043137256, b: 0.05490196, a: 1}
+    - Type: 3
+      Color: {r: 0.8784314, g: 0.62352943, b: 0.24313726, a: 1}
+    Movements: []
+  HatSettings:
+    CapPrefab: {fileID: 1602204490586129492, guid: edc7ccf1f1b684f4cb7926bb92618c95,
+      type: 3}
+    DistAdjust: 0.6
+    OffsetPerStep: 0.3
