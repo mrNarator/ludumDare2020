@@ -7,7 +7,7 @@ using UnityEngine;
 
 public interface IMovementStrategy
 {
-    bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove);
+    bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove, out Vector3 moveVec);
 }
 
 public interface IAwareMover : IMovementStrategy
@@ -26,5 +26,5 @@ public interface ISimpleMover : IMovementStrategy
 public abstract class AMovementStrategy : ScriptableObject
     , IMovementStrategy
 {
-    public abstract bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove);
+    public abstract bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove, out Vector3 moveVec);
 }

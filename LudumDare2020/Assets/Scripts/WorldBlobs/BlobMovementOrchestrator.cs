@@ -25,6 +25,7 @@ public class BlobMovementOrchestrator : MonoBehaviour
     private AMovementStrategy selectedMovementStrat;
 
     private bool canAssignPriorities = false;
+    private Vector3 moveDirection = Vector3.zero;
 
     [UsedImplicitly]
     private void Awake()
@@ -63,8 +64,9 @@ public class BlobMovementOrchestrator : MonoBehaviour
                     //UnityEngine.Debug.LogError($"Assigned smart priorities Strategies move selector, but sentient object has no way to get priorities on {name}");
                 }
             }
-            if(selectedMovementStrat.GetNextMovement(seenInteractions, transform.position, out var move))
+            if(selectedMovementStrat.GetNextMovement(seenInteractions, transform.position, out var move, out var vec))
             {
+                moveDirection = vec;
                 movement.RegisterAction(move);
             }
         }
@@ -75,5 +77,12 @@ public class BlobMovementOrchestrator : MonoBehaviour
     {
         // Uh-o, we need to inform somebody, that  we are dead
         MessageBroker.Default.Publish<BlobDeadEvt>(new BlobDeadEvt() { Blob = gameObject });
+    }
+
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        UnityEditor.Handles.DrawAAPolyLine(5f, transform.position, transform.TransformPoint(moveDirection));
+#endif // UNITY_EDITOR
     }
 }

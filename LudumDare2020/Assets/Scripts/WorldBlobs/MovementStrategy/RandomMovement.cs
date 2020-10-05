@@ -21,9 +21,10 @@ public class RandomMovement : AMovementStrategy
         }
     }
 
-    public override bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove)
+    public override bool GetNextMovement(List<IInteractable> interactables, Vector3 myPos, out Movement.MovementType nextMove, out Vector3 moveVec)
     {
         nextMove = AllTypes.GetRandomValue();
+        moveVec = UnityEngine.Random.insideUnitSphere;
         return true;
     }
 }
