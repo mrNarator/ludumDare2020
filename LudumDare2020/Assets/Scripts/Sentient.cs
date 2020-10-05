@@ -42,6 +42,8 @@ public class Sentient : MonoBehaviour
     private System.IDisposable evtStream;
     private IPrioritiesEvaluator priorityEvaluator;
 
+    private bool isPlayer = false;
+
     private static List<InteractionType> defaultInteractionSequence = new List<InteractionType>
     {
         InteractionType.Food,
@@ -311,5 +313,16 @@ public class Sentient : MonoBehaviour
             ChangeLove(1);
         }
         return success;
+    }
+
+    public void SetupAsPlayer(PlayerInput playerInput)
+    {
+        isPlayer = true;
+
+        Love = 0;
+        Handsome = 0;
+        Strength = 0;
+        Food = 2;
+        Drink = 2;
     }
 }

@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ public class Settings : ScriptableObject
     public float MovementFoodCost = 0.1f;
 
     public Blob BlobSettings;
+    public Colors ColorSettings;
+    public Hats HatSettings;
 
     [Serializable]
     public class Blob
@@ -32,5 +35,37 @@ public class Settings : ScriptableObject
             public float StrengthCriticalPerc;
             public float LoveCriticalPerc;
         }
+    }
+
+    [Serializable]
+    public class Colors
+    {
+        [ReorderableList]
+        public List<Interaction> Interactions;
+
+        [ReorderableList]
+        public List<MovementStrat> Movements;
+
+        [Serializable]
+        public class Interaction
+        {
+            public InteractionType Type;
+            public Color Color;
+        }
+
+        [Serializable]
+        public class MovementStrat
+        {
+            public AMovementStrategy Strat;
+            public Color Color;
+        }
+    }
+
+    [Serializable]
+    public class Hats
+    {
+        public MeshRenderer CapPrefab;
+        public float DistAdjust;
+        public float OffsetPerStep;
     }
 }
