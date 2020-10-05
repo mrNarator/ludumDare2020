@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53c19a0d6a15844459b911338359e3d1, type: 3}
   m_Name: GlobalSettings
   m_EditorClassIdentifier: 
-  DrinkDecaySpeed: 0.01
+  DrinkDecaySpeed: 0.05
   MovementFoodCost: 0.1
   BlobSettings:
     VisioRange: 8
