@@ -214,7 +214,11 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeFood(float value) { Mathf.Clamp(Food += value, 0, maxFood); }
+    public void ChangeFood(float value)
+    {       
+        Food = Mathf.Clamp(Food += value, 0.0f, maxFood
+    );
+    }
     public bool DoDrink()
     {
         var drink = InteractablesInRange.FirstOrDefault(x => x?.GetInteractionType() == InteractionType.Drink && x?.IsConsumed == false);
@@ -229,7 +233,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeDrink(float value) { Mathf.Clamp(Drink += value, 0, maxDrink);  }
+    public void ChangeDrink(float value) { Drink = Mathf.Clamp(Drink += value, 0, maxDrink);  }
 
     public bool DoStrength()
     {
@@ -246,7 +250,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeStrength(float value) { Mathf.Clamp(Strength += value, 0, maxStrength); }
+    public void ChangeStrength(float value) { Strength = Mathf.Clamp(Strength += value, 0, maxStrength); }
 
     public bool DoHandsome()
     {
@@ -263,7 +267,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeHandsome(float value) { Mathf.Clamp(Handsome += value, 0, maxHandsome); }
+    public void ChangeHandsome(float value) { Handsome = Mathf.Clamp(Handsome += value, 0, maxHandsome); }
 
     public bool DoLove()
     {
@@ -282,7 +286,7 @@ public class Sentient : MonoBehaviour
 
     }
     public void ChangeLove(float value) {
-        Mathf.Clamp(Love += value, 0, maxLove);
+        Mathf.Clamp(Love = Love += value, 0, maxLove);
     }
 
 

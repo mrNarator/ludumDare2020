@@ -22,7 +22,7 @@ public class PrioritiesEvaluator : MonoBehaviour, IPrioritiesEvaluator
     }
 
     public List<InteractionType> Priorities => priorities;
-    public Action PrioritiesUpdated;
+    public Action PrioritiesUpdated = () => { };
     private List<InteractionType> priorities;
     private List<(InteractionType type, float perc, bool isCrit)> workList;
 
