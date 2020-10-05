@@ -12,6 +12,7 @@ public class PlayerHUD : MonoBehaviour
     public TextMeshProUGUI StrengthScore;
     public TextMeshProUGUI HandsomeScore;
     public TextMeshProUGUI LoveScore;
+    public TextMeshProUGUI Score;
 
     public TextMeshProUGUI ReincarnationCount;
 
@@ -35,6 +36,7 @@ public class PlayerHUD : MonoBehaviour
         StrengthScore.SetText(strengthText);
         HandsomeScore.SetText(handsomeText);
         LoveScore.SetText(loveText);
+        Score.SetText(sentient.ReincartionTimes.ToString());
     }
 
 
@@ -44,11 +46,12 @@ public class PlayerHUD : MonoBehaviour
         
     }
 
-    public void DeathNotice()
+    public void DeathNotice(Sentient sentient)
     {
         if(!deadNoticeIssued)
         {
             if(!DeathUI) { Debug.Log("Pls assign DeathUI on Player HUD!", this); return; }
+            ReincarnationCount.SetText(sentient.ReincartionTimes.ToString());
             DeathUI.SetActive(true);
             StartCoroutine(RestartCountDown());
             deadNoticeIssued = true;

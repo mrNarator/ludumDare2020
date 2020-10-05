@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
 
         playerHUD = FindObjectOfType<PlayerHUD>();
 
-        sentient.SetupAsPlayer(this);
+        sentient.SetupAsPlayer();
     }
     void Start()
     {
@@ -28,7 +28,7 @@ public class PlayerInput : MonoBehaviour
         if (!sentient.Alive())
         {
             //dont try this at home 
-            playerHUD.DeathNotice();
+            playerHUD.DeathNotice(sentient);
             return;
         }
 

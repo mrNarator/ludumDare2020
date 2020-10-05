@@ -43,6 +43,8 @@ public class Sentient : MonoBehaviour
     private IPrioritiesEvaluator priorityEvaluator;
 
     private bool isPlayer = false;
+    int reincartionTimes = 0;
+    public int ReincartionTimes { get { return reincartionTimes; } set { reincartionTimes = value; } }
 
     private static List<InteractionType> defaultInteractionSequence = new List<InteractionType>
     {
@@ -110,7 +112,7 @@ public class Sentient : MonoBehaviour
     {
         if(Alive())
         {
-            ChangeDrink(-SettingsProvider.Instance.Global.DrinkDecaySpeed * Time.deltaTime);
+            ChangeDrink(-SettingsProvider.Instance.Global.DrinkDecaySpeed * Time.deltaTime * (ReincartionTimes + 1));
 
         }
     }
@@ -286,9 +288,34 @@ public class Sentient : MonoBehaviour
 
     }
     public void ChangeLove(float value) {
-        Mathf.Clamp(Love = Love += value, 0, maxLove);
+        Love = Mathf.Clamp(Love += value, 0, maxLove);
+
+
+        if(Love >= maxLove)
+        {
+            StartCoroutine(FinishingSequence());
+        }
     }
 
+    IEnumerator FinishingSequence()
+    {
+        Vector3 startingscale = gameObject.transform.localScale;
+        Vector3 startingposition = gameObject.transform.position;
+
+        float scallingDownTIme = 1.5f;
+        while(scallingDownTIme > 0)
+        {
+            gameObject.transform.position = gameObject.transform.position + new Vector3(0,Time.deltaTime,0);
+            gameObject.transform.localScale = gameObject.transform.localScale * (1 - Time.deltaTime);
+            scallingDownTIme -= Time.deltaTime;
+            yield return null;
+        }
+        gameObject.transform.localScale = startingscale;
+        GetComponent<Rigidbody>()?.AddForce(0, 14.0f, 0, ForceMode.VelocityChange);
+        Love = 0;
+        ReincartionTimes += 1;
+        yield return null;
+    }
 
     private bool ProccessLoveTransaction(Sentient OtherSentient)
 {
@@ -317,7 +344,7 @@ public class Sentient : MonoBehaviour
         return success;
     }
 
-    public void SetupAsPlayer(PlayerInput playerInput)
+    public void SetupAsPlayer()
     {
         isPlayer = true;
 
