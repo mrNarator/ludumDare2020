@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     public float MovementCooldown = 0.25f;
     public float Speed = 1;
     private float remainingMoveCooldown = 0.0f;
+    public AudioSource movementSound;
 
     Rigidbody rb;
     Sentient sentient;
@@ -78,6 +79,12 @@ public class Movement : MonoBehaviour
                 remainingMoveCooldown = MovementCooldown; 
                 actionList.Clear();
                 sentient?.ChangeFood(-SettingsProvider.Instance.Global.MovementFoodCost);
+
+                if(movementSound != null)
+                {
+                    movementSound.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                    movementSound.PlayDelayed(0.20f);
+                }
             }
         }
         else

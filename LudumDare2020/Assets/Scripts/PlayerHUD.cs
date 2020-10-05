@@ -1,7 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
@@ -12,6 +13,13 @@ public class PlayerHUD : MonoBehaviour
     public TextMeshProUGUI HandsomeScore;
     public TextMeshProUGUI LoveScore;
 
+    public TextMeshProUGUI ReincarnationCount;
+
+    public GameObject DeathUI;
+    public TextMeshProUGUI RestartIn;
+    float RestartTimer = 5.0f;
+
+    bool deadNoticeIssued = false;
 
     public void UpdateScores(Sentient sentient)
     {
@@ -34,5 +42,40 @@ public class PlayerHUD : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void DeathNotice()
+    {
+        if(!deadNoticeIssued)
+        {
+            if(!DeathUI) { Debug.Log("Pls assign DeathUI on Player HUD!", this); return; }
+            DeathUI.SetActive(true);
+            StartCoroutine(RestartCountDown());
+            deadNoticeIssued = true;
+        }     
+    }
+
+    IEnumerator RestartCountDown()
+    {
+        while(RestartTimer > 0)
+        {
+            yield return null;
+
+            RestartTimer -= Time.deltaTime;
+
+            if(RestartIn)
+            {
+                RestartIn.SetText("Restarting in: " + RestartTimer.ToString());
+            }
+        }
+
+        Restart();
+
+        yield return null;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

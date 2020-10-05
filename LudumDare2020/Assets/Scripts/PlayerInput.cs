@@ -14,6 +14,8 @@ public class PlayerInput : MonoBehaviour
         sentient = GetComponent<Sentient>();
 
         playerHUD = FindObjectOfType<PlayerHUD>();
+
+        sentient.SetupAsPlayer(this);
     }
     void Start()
     {
@@ -23,6 +25,13 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!sentient.Alive())
+        {
+            //dont try this at home 
+            playerHUD.DeathNotice();
+            return;
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
             movement.RegisterAction(Movement.MovementType.Forward);
@@ -46,6 +55,7 @@ public class PlayerInput : MonoBehaviour
             sentient.Interact();
         }
 
+       
         playerHUD.UpdateScores(sentient);
     }
 }
