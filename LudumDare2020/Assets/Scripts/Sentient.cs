@@ -125,7 +125,6 @@ public class Sentient : MonoBehaviour
 
         if (inter.Length > 0)
         {
-            Debug.Log($"added {other.gameObject.name} to {name}");
             InteractablesInRange.AddRange(inter);
         }
     }
@@ -150,7 +149,6 @@ public class Sentient : MonoBehaviour
         if (inter.Length > 0)
         {
             InteractablesInRange.RemoveRange(inter);
-            Debug.Log($"removed {obj.name} from {name} left: {InteractablesInRange.Count}");
         }
     }
 
