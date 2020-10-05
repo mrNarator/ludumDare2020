@@ -60,7 +60,7 @@ public class BlobMovementOrchestrator : MonoBehaviour
                 }
                 else
                 {
-                    UnityEngine.Debug.LogError($"Assigned smart priorities Strategies move selector, but sentient object has no way to get priorities on {name}");
+                    //UnityEngine.Debug.LogError($"Assigned smart priorities Strategies move selector, but sentient object has no way to get priorities on {name}");
                 }
             }
             if(selectedMovementStrat.GetNextMovement(seenInteractions, transform.position, out var move))
