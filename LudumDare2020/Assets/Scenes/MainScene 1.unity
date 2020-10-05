@@ -768,6 +768,10 @@ MonoBehaviour:
   StrengthScore: {fileID: 1495491650}
   HandsomeScore: {fileID: 1447383367}
   LoveScore: {fileID: 558378741}
+  Score: {fileID: 0}
+  ReincarnationCount: {fileID: 0}
+  DeathUI: {fileID: 0}
+  RestartIn: {fileID: 0}
 --- !u!114 &200289469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2083,7 +2087,7 @@ PrefabInstance:
     - target: {fileID: 4621459215234040284, guid: 36eac1f2cca60cf4a9bbed9646b8f600,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5263686
+      value: 1.28
       objectReference: {fileID: 0}
     - target: {fileID: 4621459215234040284, guid: 36eac1f2cca60cf4a9bbed9646b8f600,
         type: 3}

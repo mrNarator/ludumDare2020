@@ -29,7 +29,7 @@ public class Sentient : MonoBehaviour
     [ShowNativeProperty]
     public float Love { get; private set; }
 
-    public bool Alive() { return Drink >= 0; }
+    public bool Alive() { return Drink >= 0.0f; }
     public bool CanMove() { return Alive() && (Food - SettingsProvider.Instance.Global.MovementFoodCost >= -0.01f); }
 
 
@@ -235,7 +235,7 @@ public class Sentient : MonoBehaviour
             return false;
         }
     }
-    public void ChangeDrink(float value) { Drink = Mathf.Clamp(Drink += value, 0, maxDrink);  }
+    public void ChangeDrink(float value) { Drink = Mathf.Clamp(Drink += value, -0.01f, maxDrink);  }
 
     public bool DoStrength()
     {
