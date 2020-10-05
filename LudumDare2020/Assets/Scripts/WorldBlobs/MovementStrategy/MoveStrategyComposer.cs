@@ -9,6 +9,7 @@ using NaughtyAttributes;
 
 [CreateAssetMenu(fileName = "MovementStrategyComposer", menuName = "BlobMovement/Composer")]
 public class MoveStrategyComposer : AMovementStrategy
+    , IAwareMover
 {
     [SerializeField]
     [ReorderableList]
@@ -27,5 +28,16 @@ public class MoveStrategyComposer : AMovementStrategy
         // failing to find where to move;
         nextMove = Movement.MovementType.Backward;
         return false;
+    }
+
+    public void SetPriorities(List<InteractionType> priorities)
+    {
+        foreach(var seq in  _tryApplySequence)
+        {
+            if(seq is IAwareMover)
+            {
+                (seq as IAwareMover).SetPriorities(priorities);
+            }
+        }
     }
 }
